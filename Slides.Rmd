@@ -1,0 +1,96 @@
+---
+title       : Coursera Developing Data Products 
+subtitle    : Course Assignment - Developing a Shiny App
+author      : Xiangting
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+
+---
+
+## Background 
+
+My Shiny Application is based on the mtcars data set:
+
+```{r,echo=FALSE}
+data(mtcars)
+```
+
+A data frame with 32 observations on 11 variables. We are interested in the following 5 variables:
+
+1. mpg        Miles/(US) gallon
+2. cyl	Number of cylinders
+3. hp	Gross horsepower
+4. wt	Weight (lb/1000)
+5. am	Transmission (0 = automatic, 1 = manual)
+
+--- .class #id 
+
+## Data Structure
+
+Overview of the data structure
+
+```{r}
+head(mtcars)
+```
+
+--- .class #id 
+
+## App Function
+
+This app uses the mtcars dataset and allows users to predict Miles per gallon (MPG) using 4 variables - Horsepower, number of cylinders, weight and transmission (Automactic or Manual)
+
+This is done through fitting a linear model on these 4 variables.  
+
+```{r}
+lm(mpg ~ hp + cyl + wt +am, data=mtcars)
+```
+
+--- .class #id 
+
+## App Features
+
+1. The radio buttons choices are use to limit inputs of number of cyliners and transmission to the valid inputs.  
+
+2. Inputs of the users are shown for validation. 
+
+3. The linear model function is used to predict the mpg based on the 4 variables input by the user. 
+
+4. MPG is recalculated and displayed each time user changes a variable.
+
+--- .class #id 
+
+## Interactive Graphs
+
+The app will also produce interactive graphs to show how MPG is related to the 4 variables.
+
+```{r,echo=FALSE}
+par(mfrow = c(1, 4))
+                        # (1, 1)
+                        with(mtcars, plot(hp, mpg,
+                                          xlab='Gross horsepower',
+                                          ylab='MPG',
+                                          main='MPG vs horsepower'))
+                                 
+                        # (1, 2)
+                        with(mtcars, plot(cyl, mpg,
+                                          xlab='Number of cylinders',
+                                          ylab='MPG',
+                                          main='MPG vs cylinders'))
+                        # (1, 3)
+                        with(mtcars, plot(wt, mpg,
+                                          xlab='Weight (lb/1000)',
+                                          ylab='MPG',
+                                          main='MPG vs weight'))
+                        
+                        # (1, 4)
+                        with(mtcars, plot(am, mpg,
+                                          xlab='Transmission (Automactic or Manual)',
+                                          ylab='MPG',
+                                          main='MPG vs Transmission'))
+```     
+
